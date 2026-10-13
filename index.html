@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LedgerLK — Your Shop's Credit Ledger in Your Pocket | Inzeedo (PVT) Ltd</title>
+<meta name="description" content="LedgerLK helps Sri Lankan retail stores and field merchants record customer credit (கடன் கணக்கு / ණය පොත), track cash flow, and collect dues faster — from any smartphone. Free forever plan. Sinhala / Tamil / English." />
+<meta name="keywords" content="LedgerLK, Inzeedo, bookkeeping Sri Lanka, credit ledger app, shop management, debt collection, WhatsApp reminders" />
+<meta name="author" content="Inzeedo (PVT) Ltd" />
+<meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#ffffff" />
+<link rel="canonical" href="https://ledgerlk.inzeedo.lk/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="LedgerLK by Inzeedo" />
+<meta property="og:title" content="LedgerLK — Your shop's credit ledger, finally in your pocket." />
+<meta property="og:description" content="Record customer credit, track cash flow, and collect dues faster. Built for Sri Lankan businesses. Free forever plan." />
+<meta property="og:url" content="https://ledgerlk.inzeedo.lk/" />
+<meta property="og:image" content="https://ledgerlk.inzeedo.lk/og-cover.jpg" />
+<meta property="og:locale" content="en_LK" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="LedgerLK — Your shop's credit ledger, finally in your pocket." />
+<meta name="twitter:description" content="Mobile bookkeeping and credit-ledger app for small businesses in Sri Lanka." />
+<meta name="twitter:image" content="https://ledgerlk.inzeedo.lk/og-cover.jpg" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23F0643C'/%3E%3Cpath d='M10 8h4v10h8v4H10z' fill='white'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+  html{ scroll-behavior:smooth; }
+  body{ font-family:'Inter',system-ui,sans-serif; background:#ffffff; color:#101014; }
+  .font-logo{ font-family:'Comfortaa',cursive; }
+  ::selection{ background:#F0643C; color:#fff; }
+
+  .hero-wash{
+    background:
+      radial-gradient(620px 340px at 18% 8%, rgba(240,100,60,.14), transparent 65%),
+      radial-gradient(680px 360px at 84% 12%, rgba(240,100,60,.10), transparent 65%),
+      radial-gradient(560px 380px at 50% 0%, rgba(244,114,182,.08), transparent 65%),
+      linear-gradient(180deg, #FDF3EC 0%, #FBF4F1 45%, #FFFFFF 100%);
+  }
+
+  .eyebrow{ display:inline-flex; align-items:center; gap:.6rem; font-size:11px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:#F0643C; }
+  .eyebrow::before{ content:""; width:26px; height:2px; background:#F0643C; border-radius:2px; }
+
+  .card-clean{ background:#fff; border:1px solid rgba(16,16,20,.09); }
+  .card-hover{ transition:transform .3s ease, box-shadow .3s ease; }
+  .card-hover:hover{ transform:translateY(-4px); box-shadow:0 24px 50px -24px rgba(16,16,20,.22); }
+
+  .btn-brand{ background:#F0643C; transition:background .25s ease, transform .25s ease, box-shadow .25s ease; box-shadow:0 14px 30px -12px rgba(240,100,60,.55); }
+  .btn-brand:hover{ background:#D9532B; transform:translateY(-2px); }
+  .btn-dark{ background:#101014; transition:background .25s ease, transform .25s ease; }
+  .btn-dark:hover{ background:#2a2a31; transform:translateY(-2px); }
+  .btn-outline{ border:1px solid rgba(16,16,20,.16); background:#fff; transition:all .25s ease; }
+  .btn-outline:hover{ border-color:rgba(16,16,20,.35); transform:translateY(-2px); }
+
+  .nav-link{ color:rgba(255,255,255,.65); transition:color .25s ease; }
+  .nav-link:hover{ color:#fff; }
+  .nav-link.active{ color:#fff; }
+
+  @keyframes marquee{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+  .marquee-track{ display:flex; align-items:center; width:max-content; animation:marquee 26s linear infinite; }
+  .marquee-track:hover{ animation-play-state:paused; }
+
+  .faq-answer{ max-height:0; overflow:hidden; transition:max-height .4s ease; }
+  .faq-item .icon-minus{ display:none; }
+  .faq-item[data-open="true"] .icon-plus{ display:none; }
+  .faq-item[data-open="true"] .icon-minus{ display:block; }
+
+  .price-fade{ transition:opacity .25s ease, transform .25s ease; }
+  .price-fade.swapping{ opacity:0; transform:translateY(8px); }
+
+  .reveal{ opacity:0; }
+  .no-motion .reveal{ opacity:1 !important; transform:none !important; }
+
+  #to-top{ opacity:0; pointer-events:none; transform:translateY(12px); transition:all .35s ease; }
+  #to-top.show{ opacity:1; pointer-events:auto; transform:translateY(0); }
+
+  /* ---------- motion details ---------- */
+  .nav-link{ padding:.45rem .85rem; border-radius:9999px; }
+  .nav-link:hover{ background:rgba(255,255,255,.09); }
+  .w-wrap{ display:inline-block; overflow:hidden; vertical-align:bottom; padding-bottom:.1em; margin-bottom:-.1em; }
+  .w-inner{ display:inline-block; will-change:transform; }
+  #hero-mockup{ perspective:1200px; }
+  #hero-mockup .tilt{ transform-style:preserve-3d; will-change:transform; }
+
+  a:focus-visible,button:focus-visible{ outline:2px solid #F0643C; outline-offset:3px; border-radius:8px; }
+
+  @media (prefers-reduced-motion: reduce){
+    .marquee-track{ animation:none; flex-wrap:wrap; width:auto; }
+    html{ scroll-behavior:auto; }
+  }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"LedgerLK","operatingSystem":"Android","applicationCategory":"FinanceApplication","author":{"@type":"Organization","name":"Inzeedo (PVT) Ltd"},"offers":{"@type":"Offer","price":"0","priceCurrency":"LKR"},"inLanguage":["en","si","ta"]}
+</script>
+</head>
+<body class="bg-white text-[#101014] antialiased overflow-x-hidden">
+
+<a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-black focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:z-[100]">Skip to content</a>
+
+<!-- ============ NAVBAR (floating black pill) ============ -->
+<header id="site-header" class="fixed top-3 sm:top-5 inset-x-0 z-50">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <nav id="navbar" class="bg-[#0B0B0D] rounded-full pl-5 pr-2 py-2 flex items-center justify-between transition-shadow duration-300" aria-label="Main navigation">
+      <a href="#top" class="flex items-center gap-2" aria-label="LedgerLK home">
+        <span class="w-8 h-8 rounded-lg bg-[#F0643C] flex items-center justify-center font-logo font-bold text-white text-base" aria-hidden="true">L</span>
+        <span class="font-logo font-bold text-white text-lg tracking-tight">LedgerLK</span>
+      </a>
+      <div class="hidden md:flex items-center gap-7 text-sm font-medium">
+        <a href="#features" data-nav="features" class="nav-link">Features</a>
+        <a href="#how-it-works" data-nav="how-it-works" class="nav-link">How it works</a>
+        <a href="#pricing" data-nav="pricing" class="nav-link">Pricing</a>
+        <a href="#faq" data-nav="faq" class="nav-link">FAQ</a>
+      </div>
+      <div class="flex items-center gap-1 sm:gap-2">
+        <a href="#download" class="hidden sm:inline-block text-sm font-semibold text-white/75 hover:text-white transition-colors px-4 py-2">Login</a>
+        <a href="#download" class="btn-brand text-white text-sm font-bold px-5 py-2.5 rounded-full">Get the App</a>
+        <button id="menu-btn" class="md:hidden text-white p-2.5 rounded-full hover:bg-white/10 transition-colors" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg id="icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          <svg id="icon-close" class="hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+    </nav>
+    <div id="mobile-menu" class="md:hidden hidden mt-2 bg-white rounded-3xl border border-black/10 shadow-2xl p-3">
+      <a href="#features" class="mobile-link block px-4 py-3 rounded-2xl hover:bg-black/5 font-medium text-[15px]">Features</a>
+      <a href="#how-it-works" class="mobile-link block px-4 py-3 rounded-2xl hover:bg-black/5 font-medium text-[15px]">How it works</a>
+      <a href="#pricing" class="mobile-link block px-4 py-3 rounded-2xl hover:bg-black/5 font-medium text-[15px]">Pricing</a>
+      <a href="#faq" class="mobile-link block px-4 py-3 rounded-2xl hover:bg-black/5 font-medium text-[15px]">FAQ</a>
+      <a href="#download" class="mobile-link btn-brand block text-white font-bold px-4 py-3 rounded-2xl mt-1 text-center">Get the App</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<!-- ============ HERO ============ -->
+<section id="top" class="hero-wash relative pt-32 sm:pt-40 pb-16 sm:pb-20" aria-labelledby="hero-heading">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 text-center">
+    <span class="hero-el inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#101014] bg-white border border-black/10 rounded-full px-5 py-2 shadow-sm">Built for Sri Lankan businesses</span>
+    <h1 id="hero-heading" class="hero-el font-bold tracking-tight text-[#101014] text-4xl sm:text-6xl lg:text-[4.4rem] leading-[1.04] mt-7 max-w-4xl mx-auto">Your shop's <span class="text-[#F0643C]">credit ledger,</span> finally in your pocket.</h1>
+    <p class="hero-el text-[#55565e] text-base sm:text-lg leading-relaxed mt-6 max-w-2xl mx-auto">LedgerLK helps retail stores and field merchants record customer credit (கடன் கணக்கு / ණය පොත), track cash flow, and collect dues faster — from any smartphone.</p>
+    <div class="hero-el flex flex-col sm:flex-row items-center justify-center gap-3 mt-9">
+      <a href="#download" class="btn-brand text-white font-bold px-8 py-4 rounded-full inline-flex items-center gap-2 w-full sm:w-auto justify-center">
+        Download Free
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="#pricing" class="btn-outline font-bold px-8 py-4 rounded-full w-full sm:w-auto text-center">See Pricing</a>
+    </div>
+    <p class="hero-el text-xs sm:text-sm text-[#8a8b93] mt-5 font-medium">Free forever plan • No credit card • Sinhala / Tamil / English</p>
+
+    <!-- Product mockup: ledger workspace -->
+    <div id="hero-mockup" class="mt-14 text-left" role="img" aria-label="LedgerLK app preview showing a customer ledger workspace with balances and a payment reminder button">
+      <div class="tilt bg-white rounded-[1.75rem] border border-black/10 shadow-[0_40px_90px_-30px_rgba(16,16,20,.25)] overflow-hidden max-w-5xl mx-auto">
+        <div class="flex items-center justify-between px-5 sm:px-7 py-4 border-b border-black/[0.07]">
+          <div class="flex items-center gap-3">
+            <span class="flex gap-1.5" aria-hidden="true"><i class="w-3 h-3 rounded-full bg-[#FF5F57] block"></i><i class="w-3 h-3 rounded-full bg-[#FEBC2E] block"></i><i class="w-3 h-3 rounded-full bg-[#28C840] block"></i></span>
+            <p class="font-bold text-[15px]">Customer Ledger <span class="font-medium text-[#8a8b93]">— ABC Stores</span></p>
+          </div>
+          <div class="flex items-center gap-2.5">
+            <span class="hidden sm:inline-flex text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200 items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Synced</span>
+            <span class="btn-brand text-white text-xs font-bold px-4 py-2 rounded-full">Send Reminder</span>
+          </div>
+        </div>
+        <div class="grid md:grid-cols-[1.15fr_.85fr]">
+          <div class="p-4 sm:p-6 space-y-3">
+            <div class="rounded-2xl p-4 border border-[#F0643C]/25 bg-[#F0643C]/[.06]">
+              <div class="flex items-center gap-3">
+                <span class="w-10 h-10 rounded-full bg-[#F0643C] flex items-center justify-center text-white text-xs font-bold shrink-0" aria-hidden="true">RK</span>
+                <div class="flex-1 min-w-0">
+                  <p class="font-bold text-sm">R. Kumar</p>
+                  <p class="text-xs text-[#8a8b93]">Due 12 Oct • Rice + flour</p>
+                </div>
+                <span class="text-[10px] font-bold px-2 py-1 rounded-full bg-red-50 text-red-500 border border-red-200">OVERDUE</span>
+              </div>
+              <div class="flex items-center justify-between mt-3">
+                <span class="text-red-500 font-extrabold text-lg">Rs. 24,800</span>
+                <span class="btn-brand text-white text-xs font-bold px-4 py-2 rounded-full">PAY reminder</span>
+              </div>
+            </div>
+            <div class="rounded-2xl p-4 border border-black/[0.07]">
+              <div class="flex items-center gap-3">
+                <span class="w-10 h-10 rounded-full bg-[#101014] flex items-center justify-center text-white text-xs font-bold shrink-0" aria-hidden="true">FS</span>
+                <div class="flex-1 min-w-0">
+                  <p class="font-bold text-sm">Fathima S.</p>
+                  <p class="text-xs text-[#8a8b93]">Due 15 Oct • Groceries</p>
+                </div>
+              </div>
+              <div class="flex items-center justify-between mt-3">
+                <span class="text-red-500 font-extrabold text-lg">Rs. 12,350</span>
+                <span class="text-xs font-bold px-4 py-2 rounded-full border border-black/15">Remind</span>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="rounded-2xl border border-black/[0.07] p-3.5"><p class="text-[11px] font-semibold text-[#8a8b93]">Cash in today</p><p class="text-emerald-600 font-extrabold">Rs. 62,000</p></div>
+              <div class="rounded-2xl border border-black/[0.07] p-3.5"><p class="text-[11px] font-semibold text-[#8a8b93]">Cash out today</p><p class="font-extrabold">Rs. 13,500</p></div>
+            </div>
+          </div>
+          <div class="border-t md:border-t-0 md:border-l border-black/[0.07] bg-[#FAFAF8] p-4 sm:p-6">
+            <div class="bg-white rounded-2xl border border-black/[0.07] p-5 h-full">
+              <div class="flex items-start justify-between">
+                <div><p class="font-logo font-bold text-sm">LedgerLK</p><p class="text-[11px] tracking-widest text-[#8a8b93] font-semibold">STATEMENT</p></div>
+                <div class="text-right"><p class="font-extrabold text-sm">October 2026</p><p class="text-[11px] text-[#8a8b93]">ABC Stores</p></div>
+              </div>
+              <div class="mt-4 space-y-2.5 text-[13px]" aria-hidden="true">
+                <div class="flex justify-between"><span class="text-[#55565e]">Oct 02 • Goods</span><span class="font-bold text-red-500">Rs. 8,200</span></div>
+                <div class="flex justify-between"><span class="text-[#55565e]">Oct 05 • Payment received</span><span class="font-bold text-emerald-600">Rs. 5,000</span></div>
+                <div class="flex justify-between"><span class="text-[#55565e]">Oct 09 • Goods</span><span class="font-bold text-red-500">Rs. 3,150</span></div>
+              </div>
+              <div class="flex justify-between items-center mt-4 pt-4 border-t border-black/[0.07]">
+                <span class="text-sm font-semibold text-[#55565e]">Balance due</span>
+                <span class="font-extrabold text-lg">Rs. 18,750</span>
+              </div>
+              <div class="grid grid-cols-2 gap-2 mt-4">
+                <span class="text-center text-xs font-bold bg-emerald-500 text-white rounded-full py-2.5">WhatsApp</span>
+                <span class="text-center text-xs font-bold border border-black/15 rounded-full py-2.5">SMS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST BAR ============ -->
+<section class="py-14 sm:py-16" aria-label="Trusted towns">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 text-center">
+    <p class="reveal text-xs font-bold tracking-[0.22em] uppercase text-[#8a8b93]">Trusted by 500+ shops across Sri Lanka</p>
+    <div class="reveal mt-8 overflow-hidden" style="mask-image:linear-gradient(to right,transparent,black 12%,black 88%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,black 12%,black 88%,transparent)">
+      <div class="marquee-track gap-12 pr-12" id="town-ticker" aria-label="Towns we serve">
+        <span class="text-2xl font-extrabold tracking-tight whitespace-nowrap">Colombo</span>
+        <span class="text-2xl whitespace-nowrap" style="font-family:Georgia,serif">Kandy</span>
+        <span class="text-2xl font-black italic whitespace-nowrap">Jaffna</span>
+        <span class="text-2xl font-bold whitespace-nowrap">Batticaloa</span>
+        <span class="text-xl font-light tracking-[0.28em] uppercase whitespace-nowrap">Kalmunai</span>
+        <span class="text-2xl font-extrabold italic whitespace-nowrap">Ampara</span>
+        <span class="text-2xl whitespace-nowrap" style="font-family:Georgia,serif;font-style:italic">Sainthamaruthu</span>
+        <span class="text-2xl font-black tracking-tight whitespace-nowrap">Galle</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section id="features" class="scroll-mt-28 py-20 sm:py-28" aria-labelledby="features-heading">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="reveal flex items-center justify-between gap-6 border-b border-black/10 pb-5">
+      <span class="eyebrow">Features</span>
+      <a href="#how-it-works" class="text-sm font-semibold text-[#1d4ed8] hover:underline inline-flex items-center gap-1.5">See how it works <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="grid md:grid-cols-2 gap-8 md:gap-12 mt-10 items-end">
+      <h2 id="features-heading" class="reveal font-bold tracking-tight text-4xl sm:text-5xl leading-[1.06]">Everything your credit book does, only faster.</h2>
+      <p class="reveal text-[#55565e] leading-relaxed">Purpose-built for small shops, boutiques and field sellers across the island. No training needed — if you can use WhatsApp, you can use LedgerLK.</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-12">
+      <article class="reveal card-clean card-hover rounded-[1.5rem] p-8">
+        <span class="w-12 h-12 rounded-2xl bg-[#FDEEE6] flex items-center justify-center" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F0643C" stroke-width="2"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></span>
+        <h3 class="font-bold text-xl mt-6 tracking-tight">Customer credit ledgers</h3>
+        <p class="text-[#55565e] text-[15px] leading-relaxed mt-2.5">Every customer's balance, history and due dates in one card.</p>
+      </article>
+      <article class="reveal card-clean card-hover rounded-[1.5rem] p-8">
+        <span class="w-12 h-12 rounded-2xl bg-[#FDEEE6] flex items-center justify-center" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F0643C" stroke-width="2"><path d="M21 12a8 8 0 01-8 8H4l2-3a8 8 0 1115-5z"/><path d="M9 11h6M9 14h3"/></svg></span>
+        <h3 class="font-bold text-xl mt-6 tracking-tight">WhatsApp &amp; SMS reminders</h3>
+        <p class="text-[#55565e] text-[15px] leading-relaxed mt-2.5">Send payment reminders to debtors in one tap.</p>
+      </article>
+      <article class="reveal card-clean card-hover rounded-[1.5rem] p-8">
+        <span class="w-12 h-12 rounded-2xl bg-[#FDEEE6] flex items-center justify-center" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F0643C" stroke-width="2"><path d="M12 2v20M17 6H9.5a3 3 0 000 6h5a3 3 0 010 6H6"/></svg></span>
+        <h3 class="font-bold text-xl mt-6 tracking-tight">Cash in / cash out tracking</h3>
+        <p class="text-[#55565e] text-[15px] leading-relaxed mt-2.5">Daily sales, expenses and balance summaries.</p>
+      </article>
+      <article class="reveal card-clean card-hover rounded-[1.5rem] p-8">
+        <span class="w-12 h-12 rounded-2xl bg-[#FDEEE6] flex items-center justify-center" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F0643C" stroke-width="2"><path d="M7 18a4 4 0 01-.9-7.9A5.5 5.5 0 0117 8.5 4.5 4.5 0 0117.5 18H7z"/><path d="M12 12v6M9 15l3 3 3-3"/></svg></span>
+        <h3 class="font-bold text-xl mt-6 tracking-tight">Cloud backup &amp; sync</h3>
+        <p class="text-[#55565e] text-[15px] leading-relaxed mt-2.5">Switch phones without losing a single entry.</p>
+      </article>
+      <article class="reveal card-clean card-hover rounded-[1.5rem] p-8">
+        <span class="w-12 h-12 rounded-2xl bg-[#FDEEE6] flex items-center justify-center" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F0643C" stroke-width="2"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6M9 13h7M9 17h7"/></svg></span>
+        <h3 class="font-bold text-xl mt-6 tracking-tight">Receipt photos &amp; PDF export</h3>
+        <p class="text-[#55565e] text-[15px] leading-relaxed mt-2.5">Attach bill photos, download monthly statements.</p>
+      </article>
+      <article class="reveal rounded-[1.5rem] p-8 bg-[#0B0B0D] text-white card-hover">
+        <span class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F0643C" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg></span>
+        <h3 class="font-bold text-xl mt-6 tracking-tight">One-tap social login</h3>
+        <p class="text-white/65 text-[15px] leading-relaxed mt-2.5">Sign in with Google or phone OTP, no passwords to remember.</p>
+        <a href="#download" class="inline-flex items-center gap-1.5 text-sm font-bold text-[#F0643C] mt-5">Get started free <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section id="how-it-works" class="scroll-mt-28 py-20 sm:py-28" aria-labelledby="how-heading">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="reveal flex items-center justify-between gap-6 border-b border-black/10 pb-5">
+      <span class="eyebrow">How it works</span>
+      <a href="#pricing" class="text-sm font-semibold text-[#1d4ed8] hover:underline inline-flex items-center gap-1.5">See pricing <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="grid md:grid-cols-2 gap-8 md:gap-12 mt-10 items-end">
+      <h2 id="how-heading" class="reveal font-bold tracking-tight text-4xl sm:text-5xl leading-[1.06]">Up and running in minutes, not days.</h2>
+      <p class="reveal text-[#55565e] leading-relaxed">Three steps stand between you and a dues book that collects itself. No hardware, no training, no paperwork.</p>
+    </div>
+    <ol class="grid md:grid-cols-3 gap-10 md:gap-8 mt-14 list-none">
+      <li class="reveal border-t-2 border-[#101014] pt-7">
+        <span class="font-extrabold text-[#F0643C] text-sm tracking-[0.2em]" aria-hidden="true">01</span>
+        <h3 class="font-bold text-xl mt-3 tracking-tight">Download &amp; sign in with Google</h3>
+        <p class="text-[#55565e] text-[15px] mt-2 leading-relaxed">Free download from Google Play. No paperwork, no passwords.</p>
+      </li>
+      <li class="reveal border-t-2 border-[#101014] pt-7">
+        <span class="font-extrabold text-[#F0643C] text-sm tracking-[0.2em]" aria-hidden="true">02</span>
+        <h3 class="font-bold text-xl mt-3 tracking-tight">Add your shop and customers</h3>
+        <p class="text-[#55565e] text-[15px] mt-2 leading-relaxed">Import contacts or type names in Sinhala, Tamil or English.</p>
+      </li>
+      <li class="reveal border-t-2 border-[#101014] pt-7">
+        <span class="font-extrabold text-[#F0643C] text-sm tracking-[0.2em]" aria-hidden="true">03</span>
+        <h3 class="font-bold text-xl mt-3 tracking-tight">Record sales, send reminders, watch dues come in</h3>
+        <p class="text-[#55565e] text-[15px] mt-2 leading-relaxed">Log credit in seconds and nudge late payers over WhatsApp.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ APP PREVIEW ============ -->
+<section class="py-10 sm:py-14" aria-labelledby="preview-heading">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="reveal bg-[#F7F6F4] rounded-[2rem] px-6 py-14 sm:p-16 border border-black/[0.06]">
+      <div class="text-center max-w-2xl mx-auto">
+        <span class="eyebrow justify-center">App preview</span>
+        <h2 id="preview-heading" class="font-bold tracking-tight text-3xl sm:text-[2.75rem] leading-[1.08] mt-5">Made for the counter, not the office.</h2>
+        <p class="mt-5 text-[#55565e]">Total collected by LedgerLK shops this year: <span id="collection-counter" class="font-extrabold text-[#101014]">Rs. 0</span></p>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-5 mt-12">
+        <div class="preview-card bg-white rounded-[1.5rem] border border-black/[0.08] p-7 shadow-[0_20px_45px_-25px_rgba(16,16,20,.25)]" role="img" aria-label="Dashboard card showing today's collection total">
+          <p class="text-[11px] font-bold tracking-[0.2em] uppercase text-[#8a8b93]">Dashboard</p>
+          <p class="font-bold text-lg mt-2 tracking-tight">Today's collection</p>
+          <p class="font-extrabold text-4xl mt-1 tracking-tight">Rs. 48,500</p>
+          <div class="h-2 rounded-full bg-black/[0.07] mt-5 overflow-hidden" aria-hidden="true"><div class="h-2 w-3/4 rounded-full bg-[#F0643C]"></div></div>
+          <div class="grid grid-cols-2 gap-3 mt-4">
+            <div class="rounded-2xl bg-[#F7F6F4] p-3.5 text-center"><p class="text-[11px] text-[#8a8b93] font-semibold">Due today</p><p class="font-extrabold text-sm">14 bills</p></div>
+            <div class="rounded-2xl bg-emerald-50 border border-emerald-100 p-3.5 text-center"><p class="text-[11px] text-emerald-700 font-semibold">Collected</p><p class="font-extrabold text-sm text-emerald-700">9 bills</p></div>
+          </div>
+        </div>
+        <div class="preview-card bg-[#0B0B0D] text-white rounded-[1.5rem] p-7 shadow-[0_20px_45px_-25px_rgba(16,16,20,.4)]" role="img" aria-label="Customer ledger card">
+          <p class="text-[11px] font-bold tracking-[0.2em] uppercase text-white/50">Customer ledger</p>
+          <div class="flex items-center gap-3 mt-3">
+            <span class="w-11 h-11 rounded-full bg-[#F0643C] flex items-center justify-center text-xs font-bold shrink-0" aria-hidden="true">AM</span>
+            <div><p class="font-bold">A. Mohamed</p><p class="text-xs text-white/55">Kalmunai • 12 entries</p></div>
+          </div>
+          <div class="mt-4 divide-y divide-white/10 text-[13px] border-y border-white/10" aria-hidden="true">
+            <div class="flex justify-between py-2.5"><span class="text-white/60">Oct 02 • Goods</span><span class="font-bold text-red-400">Rs. 8,200</span></div>
+            <div class="flex justify-between py-2.5"><span class="text-white/60">Oct 05 • Payment</span><span class="font-bold text-emerald-400">Rs. 5,000</span></div>
+            <div class="flex justify-between py-2.5"><span class="text-white/60">Oct 09 • Goods</span><span class="font-bold text-red-400">Rs. 3,150</span></div>
+          </div>
+          <p class="flex justify-between mt-4 font-bold"><span class="text-white/60 font-semibold">Balance due</span><span class="text-red-400">Rs. 18,750</span></p>
+        </div>
+        <div class="preview-card bg-white rounded-[1.5rem] border border-black/[0.08] p-7 shadow-[0_20px_45px_-25px_rgba(16,16,20,.25)]" role="img" aria-label="Reminder message card">
+          <p class="text-[11px] font-bold tracking-[0.2em] uppercase text-[#8a8b93]">Reminder</p>
+          <div class="rounded-2xl rounded-tl-md bg-[#F7F6F4] border border-black/[0.06] p-4 mt-3" aria-hidden="true">
+            <p class="text-[13px] font-bold">Vanakkam Kumar!</p>
+            <p class="text-xs text-[#55565e] mt-1 leading-relaxed">Your balance of Rs. 24,800 at ABC Stores is due. Please pay at your convenience.</p>
+          </div>
+          <div class="grid grid-cols-2 gap-2 mt-4">
+            <span class="text-center text-xs font-bold bg-emerald-500 text-white rounded-full py-2.5">WhatsApp</span>
+            <span class="text-center text-xs font-bold border border-black/15 rounded-full py-2.5">SMS</span>
+          </div>
+          <p class="text-[11px] text-[#8a8b93] text-center mt-3 font-medium">Sent in one tap • Sinhala / Tamil / English</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="py-20 sm:py-28" aria-labelledby="testimonials-heading">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="reveal flex items-center justify-between gap-6 border-b border-black/10 pb-5">
+      <span class="eyebrow">Testimonials</span>
+      <a href="#download" class="text-sm font-semibold text-[#1d4ed8] hover:underline inline-flex items-center gap-1.5">Join them free <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="grid md:grid-cols-2 gap-8 md:gap-12 mt-10 items-end">
+      <h2 id="testimonials-heading" class="reveal font-bold tracking-tight text-4xl sm:text-5xl leading-[1.06]">Loved by shop owners island-wide.</h2>
+      <p class="reveal text-[#55565e] leading-relaxed">LedgerLK is trusted by retail owners and field merchants who rely on getting paid on time. Their feedback reflects real dues books, not marketing promises.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-5 mt-12 items-stretch">
+      <figure class="reveal card-clean card-hover rounded-[1.75rem] p-8 flex flex-col">
+        <div class="flex gap-1" aria-label="Rated 5 out of 5 stars">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="#F0643C" aria-hidden="true"><path d="M12 2l3 6.6 7 .8-5.2 4.8L18.3 21 12 17.4 5.7 21l1.5-6.8L2 9.4l7-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="#F0643C" aria-hidden="true"><path d="M12 2l3 6.6 7 .8-5.2 4.8L18.3 21 12 17.4 5.7 21l1.5-6.8L2 9.4l7-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="#F0643C" aria-hidden="true"><path d="M12 2l3 6.6 7 .8-5.2 4.8L18.3 21 12 17.4 5.7 21l1.5-6.8L2 9.4l7-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="#F0643C" aria-hidden="true"><path d="M12 2l3 6.6 7 .8-5.2 4.8L18.3 21 12 17.4 5.7 21l1.5-6.8L2 9.4l7-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="#F0643C" aria-hidden="true"><path d="M12 2l3 6.6 7 .8-5.2 4.8L18.3 21 12 17.4 5.7 21l1.5-6.8L2 9.4l7-.8z"/></svg>
+        </div>
+        <blockquote class="text-[17px] leading-relaxed mt-5 flex-1 font-medium tracking-tight">"I collected Rs. 80,000 in overdue credit in my first month just from the WhatsApp reminders."</blockquote>
+        <figcaption class="mt-8 pt-6 border-t border-black/[0.07] flex items-center gap-3">
+          <span class="w-11 h-11 rounded-full bg-[#FDEEE6] text-[#F0643C] flex items-center justify-center text-xs font-extrabold shrink-0" aria-hidden="true">FS</span>
+          <span><span class="block font-bold text-sm">Fathima S.</span><span class="block text-[#8a8b93] text-xs mt-0.5 font-semibold tracking-wide">ABC STORES, SAINTHAMARUTHU</span></span>
+        </figcaption>
+      </figure>
+      <figure class="reveal rounded-[1.75rem] p-8 flex flex-col bg-[#F0643C] text-white card-hover">
+        <span class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center font-extrabold text-lg" aria-hidden="true">"</span>
+        <blockquote class="text-[17px] leading-relaxed mt-5 flex-1 font-medium tracking-tight">"Earlier my credit book stayed at the shop. Now my ledger travels with me to the pola and back. Cash tracking alone saves me an hour daily."</blockquote>
+        <figcaption class="mt-8 pt-6 border-t border-white/25 flex items-center gap-3">
+          <span class="w-11 h-11 rounded-full bg-white text-[#F0643C] flex items-center justify-center text-xs font-extrabold shrink-0" aria-hidden="true">NP</span>
+          <span><span class="block font-bold text-sm">Nimal Perera</span><span class="block text-white/70 text-xs mt-0.5 font-semibold tracking-wide">PERERA GROCERY, KANDY</span></span>
+        </figcaption>
+      </figure>
+      <figure class="reveal card-clean card-hover rounded-[1.75rem] p-8 flex flex-col">
+        <div class="flex gap-1" aria-label="Rated 5 out of 5 stars">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="#F0643C" aria-hidden="true"><path d="M12 2l3 6.6 7 .8-5.2 4.8L18.3 21 12 17.4 5.7 21l1.5-6.8L2 9.4l7-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="#F0643C" aria-hidden="true"><path d="M12 2l3 6.6 7 .8-5.2 4.8L18.3 21 12 17.4 5.7 21l1.5-6.8L2 9.4l7-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="#F0643C" aria-hidden="true"><path d="M12 2l3 6.6 7 .8-5.2 4.8L18.3 21 12 17.4 5.7 21l1.5-6.8L2 9.4l7-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="#F0643C" aria-hidden="true"><path d="M12 2l3 6.6 7 .8-5.2 4.8L18.3 21 12 17.4 5.7 21l1.5-6.8L2 9.4l7-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="#F0643C" aria-hidden="true"><path d="M12 2l3 6.6 7 .8-5.2 4.8L18.3 21 12 17.4 5.7 21l1.5-6.8L2 9.4l7-.8z"/></svg>
+        </div>
+        <blockquote class="text-[17px] leading-relaxed mt-5 flex-1 font-medium tracking-tight">"I changed phones after mine fell in the well. Signed in with Google and every customer record came back. Not a single entry lost."</blockquote>
+        <figcaption class="mt-8 pt-6 border-t border-black/[0.07] flex items-center gap-3">
+          <span class="w-11 h-11 rounded-full bg-[#101014] text-white flex items-center justify-center text-xs font-extrabold shrink-0" aria-hidden="true">SR</span>
+          <span><span class="block font-bold text-sm">Sivakumar R.</span><span class="block text-[#8a8b93] text-xs mt-0.5 font-semibold tracking-wide">SK TEXTILES, JAFFNA</span></span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section id="pricing" class="scroll-mt-28 py-20 sm:py-28" aria-labelledby="pricing-heading">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="reveal flex items-center justify-between gap-6 border-b border-black/10 pb-5">
+      <span class="eyebrow">Pricing</span>
+      <a href="mailto:hello@inzeedo.lk?subject=LedgerLK%20plans" class="text-sm font-semibold text-[#1d4ed8] hover:underline inline-flex items-center gap-1.5">Compare all plans <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="grid md:grid-cols-2 gap-8 md:gap-12 mt-10 items-end">
+      <h2 id="pricing-heading" class="reveal font-bold tracking-tight text-4xl sm:text-5xl leading-[1.06]">Simple pricing in rupees, free to start.</h2>
+      <div class="reveal">
+        <p class="text-[#55565e] leading-relaxed">Choose the plan that fits your shop today. Start free, upgrade when your dues book outgrows it.</p>
+        <div class="flex items-center gap-3 mt-5" role="group" aria-label="Billing period">
+          <div class="inline-flex bg-[#F1F0ED] rounded-full p-1">
+            <button id="btn-monthly" class="px-5 py-2 rounded-full text-sm font-bold bg-white shadow-sm" aria-pressed="true">Monthly</button>
+            <button id="btn-yearly" class="px-5 py-2 rounded-full text-sm font-bold text-[#55565e]" aria-pressed="false">Yearly</button>
+          </div>
+          <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200">2 months free</span>
+        </div>
+      </div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-5 mt-12 items-stretch">
+      <article class="reveal card-clean card-hover rounded-[1.75rem] p-9 flex flex-col">
+        <h3 class="font-bold text-2xl tracking-tight">Free</h3>
+        <p class="text-[#8a8b93] text-sm mt-1">For trying things out.</p>
+        <p class="price-fade mt-5"><span class="font-extrabold text-5xl tracking-tight" data-price-monthly="Rs. 0" data-price-yearly="Rs. 0">Rs. 0</span> <span class="text-[#8a8b93] text-sm font-medium" data-period>forever</span></p>
+        <ul class="text-[15px] text-[#333338] space-y-3 mt-7 flex-1">
+          <li class="flex gap-2.5"><svg class="shrink-0 mt-1" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="2.5" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>1 shop</li>
+          <li class="flex gap-2.5"><svg class="shrink-0 mt-1" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="2.5" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Up to 50 customers</li>
+          <li class="flex gap-2.5"><svg class="shrink-0 mt-1" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="2.5" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Credit ledgers</li>
+          <li class="flex gap-2.5"><svg class="shrink-0 mt-1" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="2.5" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Cash tracking</li>
+          <li class="flex gap-2.5"><svg class="shrink-0 mt-1" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="2.5" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>10 reminders/month</li>
+          <li class="flex gap-2.5"><svg class="shrink-0 mt-1" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="2.5" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Community support</li>
+        </ul>
+        <a href="#download" class="btn-outline mt-8 text-center font-bold rounded-full py-3.5">Start Free</a>
+      </article>
+      <article class="reveal rounded-[1.75rem] p-9 flex flex-col bg-[#0B0B0D] text-white card-hover relative">
+        <span class="absolute top-6 right-6 bg-[#F0643C] text-white text-[10px] font-extrabold tracking-[0.14em] px-3.5 py-1.5 rounded-full">MOST POPULAR</span>
+        <h3 class="font-bold text-2xl tracking-tight">Pro</h3>
+        <p class="text-white/55 text-sm mt-1">For growing shops.</p>
+        <p class="price-fade mt-5"><span class="font-extrabold text-5xl tracking-tight" data-price-monthly="Rs. 990" data-price-yearly="Rs. 9,900">Rs. 990</span> <span class="text-white/55 text-sm font-medium" data-period>/month</span></p>
+        <ul class="text-[15px] text-white/85 space-y-3 mt-7 flex-1">
+          <li class="flex gap-2.5"><svg class="shrink-0 mt-1" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F0643C" stroke-width="2.5" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Everything in Free +</li>
+          <li class="flex gap-2.5"><svg class="shrink-0 mt-1" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F0643C" stroke-width="2.5" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Unlimited customers</li>
+          <li class="flex gap-2.5"><svg class="shrink-0 mt-1" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F0643C" stroke-width="2.5" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Unlimited WhatsApp/SMS reminders</li>
+          <li class="flex gap-2.5"><svg class="shrink-0 mt-1" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F0643C" stroke-width="2.5" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Receipt photos</li>
+          <li class="flex gap-2.5"><svg class="shrink-0 mt-1" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F0643C" stroke-width="2.5" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>PDF exports</li>
+          <li class="flex gap-2.5"><svg class="shrink-0 mt-1" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F0643C" stroke-width="2.5" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Cloud backup &amp; multi-device sync</li>
+          <li class="flex gap-2.5"><svg class="shrink-0 mt-1" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F0643C" stroke-width="2.5" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Priority support</li>
+        </ul>
+        <a href="#download" class="btn-brand mt-8 text-center font-bold text-white rounded-full py-3.5">Go Pro</a>
+      </article>
+      <article class="reveal card-clean card-hover rounded-[1.75rem] p-9 flex flex-col">
+        <h3 class="font-bold text-2xl tracking-tight">Business</h3>
+        <p class="text-[#8a8b93] text-sm mt-1">For multi-shop owners.</p>
+        <p class="price-fade mt-5"><span class="font-extrabold text-5xl tracking-tight" data-price-monthly="Rs. 2,990" data-price-yearly="Rs. 29,900">Rs. 2,990</span> <span class="text-[#8a8b93] text-sm font-medium" data-period>/month</span></p>
+        <ul class="text-[15px] text-[#333338] space-y-3 mt-7 flex-1">
+          <li class="flex gap-2.5"><svg class="shrink-0 mt-1" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="2.5" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Everything in Pro +</li>
+          <li class="flex gap-2.5"><svg class="shrink-0 mt-1" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="2.5" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Up to 5 shops</li>
+          <li class="flex gap-2.5"><svg class="shrink-0 mt-1" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="2.5" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Staff accounts with roles</li>
+          <li class="flex gap-2.5"><svg class="shrink-0 mt-1" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="2.5" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Advanced reports &amp; analytics</li>
+          <li class="flex gap-2.5"><svg class="shrink-0 mt-1" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="2.5" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Dedicated account manager</li>
+        </ul>
+        <a href="mailto:hello@inzeedo.lk?subject=LedgerLK%20Business%20plan" class="btn-dark mt-8 text-center font-bold text-white rounded-full py-3.5">Contact Sales</a>
+      </article>
+    </div>
+    <p class="reveal text-center text-[#8a8b93] text-sm mt-8">Prices in LKR. Pay via bank transfer or card. Cancel anytime.</p>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" class="scroll-mt-28 py-20 sm:py-28" aria-labelledby="faq-heading">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="reveal flex items-center justify-between gap-6 border-b border-black/10 pb-5">
+      <span class="eyebrow">FAQ</span>
+      <a href="mailto:support@inzeedo.lk" class="text-sm font-semibold text-[#1d4ed8] hover:underline inline-flex items-center gap-1.5">Ask us anything <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="grid md:grid-cols-[.9fr_1.1fr] gap-8 md:gap-14 mt-10">
+      <div>
+        <h2 id="faq-heading" class="reveal font-bold tracking-tight text-4xl sm:text-5xl leading-[1.06]">Questions, answered.</h2>
+        <p class="reveal text-[#55565e] leading-relaxed mt-5">Everything shop owners ask before switching from the paper dues book. Still unsure? Email <a href="mailto:support@inzeedo.lk" class="font-semibold text-[#101014] underline underline-offset-2">support@inzeedo.lk</a>.</p>
+      </div>
+      <div id="faq-list">
+        <div class="faq-item reveal border-b border-black/10" data-open="false">
+          <button class="faq-q w-full flex items-center justify-between gap-4 text-left py-6 font-bold text-[16px] tracking-tight" aria-expanded="false">
+            Is LedgerLK really free?
+            <span class="shrink-0" aria-hidden="true">
+              <svg class="icon-plus" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+              <svg class="icon-minus" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14"/></svg>
+            </span>
+          </button>
+          <div class="faq-answer"><p class="pb-6 text-[#55565e] text-[15px] leading-relaxed">Yes, the Free plan is free forever — 1 shop, up to 50 customers, credit ledgers, cash tracking and 10 reminders a month. Upgrade only when you outgrow it.</p></div>
+        </div>
+        <div class="faq-item reveal border-b border-black/10" data-open="false">
+          <button class="faq-q w-full flex items-center justify-between gap-4 text-left py-6 font-bold text-[16px] tracking-tight" aria-expanded="false">
+            Do my customers need the app?
+            <span class="shrink-0" aria-hidden="true">
+              <svg class="icon-plus" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+              <svg class="icon-minus" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14"/></svg>
+            </span>
+          </button>
+          <div class="faq-answer"><p class="pb-6 text-[#55565e] text-[15px] leading-relaxed">No, only you. Reminders reach them by WhatsApp/SMS — they just reply or pay you directly.</p></div>
+        </div>
+        <div class="faq-item reveal border-b border-black/10" data-open="false">
+          <button class="faq-q w-full flex items-center justify-between gap-4 text-left py-6 font-bold text-[16px] tracking-tight" aria-expanded="false">
+            Is my business data safe?
+            <span class="shrink-0" aria-hidden="true">
+              <svg class="icon-plus" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+              <svg class="icon-minus" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14"/></svg>
+            </span>
+          </button>
+          <div class="faq-answer"><p class="pb-6 text-[#55565e] text-[15px] leading-relaxed">Encrypted in transit (TLS), backed up to the cloud, never sold. Read our <a href="https://www.inzeedo.lk/privacy-policy/ledger-lk" class="font-semibold text-[#101014] underline underline-offset-2">Privacy Policy</a>.</p></div>
+        </div>
+        <div class="faq-item reveal border-b border-black/10" data-open="false">
+          <button class="faq-q w-full flex items-center justify-between gap-4 text-left py-6 font-bold text-[16px] tracking-tight" aria-expanded="false">
+            Which languages are supported?
+            <span class="shrink-0" aria-hidden="true">
+              <svg class="icon-plus" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+              <svg class="icon-minus" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14"/></svg>
+            </span>
+          </button>
+          <div class="faq-answer"><p class="pb-6 text-[#55565e] text-[15px] leading-relaxed">English, Sinhala and Tamil — across the app interface, reminders and reports.</p></div>
+        </div>
+        <div class="faq-item reveal border-b border-black/10" data-open="false">
+          <button class="faq-q w-full flex items-center justify-between gap-4 text-left py-6 font-bold text-[16px] tracking-tight" aria-expanded="false">
+            How do I delete my account and data?
+            <span class="shrink-0" aria-hidden="true">
+              <svg class="icon-plus" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+              <svg class="icon-minus" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14"/></svg>
+            </span>
+          </button>
+          <div class="faq-answer"><p class="pb-6 text-[#55565e] text-[15px] leading-relaxed">In-app: Settings &gt; Delete Account, or our <a href="https://www.inzeedo.lk/privacy-policy/ledger-lk/account-deletion" class="font-semibold text-[#101014] underline underline-offset-2">deletion page</a>. Data purged within 7 days.</p></div>
+        </div>
+        <div class="faq-item reveal border-b border-black/10" data-open="false">
+          <button class="faq-q w-full flex items-center justify-between gap-4 text-left py-6 font-bold text-[16px] tracking-tight" aria-expanded="false">
+            Can I switch phones without losing data?
+            <span class="shrink-0" aria-hidden="true">
+              <svg class="icon-plus" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+              <svg class="icon-minus" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14"/></svg>
+            </span>
+          </button>
+          <div class="faq-answer"><p class="pb-6 text-[#55565e] text-[15px] leading-relaxed">Yes, sign in with the same Google account or phone number and everything syncs back.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DOWNLOAD CTA ============ -->
+<section id="download" class="scroll-mt-28 pb-20 sm:pb-28 pt-4" aria-labelledby="download-heading">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="reveal bg-[#F7F6F4] border border-black/[0.06] rounded-[2.5rem] px-6 py-16 sm:p-20 text-center">
+      <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#F0643C] bg-[#FDEEE6] border border-[#F0643C]/20 rounded-full px-5 py-2">Free download</span>
+      <h2 id="download-heading" class="font-bold tracking-tight text-4xl sm:text-6xl leading-[1.05] mt-6 max-w-3xl mx-auto">Start collecting dues <span class="text-[#F0643C]">faster today.</span></h2>
+      <p class="text-[#55565e] mt-6 max-w-xl mx-auto sm:text-lg">Join 500+ Sri Lankan shops running their credit books on LedgerLK. Free to start, ready in minutes.</p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mt-9">
+        <a href="https://play.google.com/store" target="_blank" rel="noopener" class="btn-dark text-white font-bold px-8 py-4 rounded-full inline-flex items-center gap-3" aria-label="Download LedgerLK on Google Play">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" opacity=".9" d="M3.6 1.8L13.7 12 3.6 22.2c-.4-.2-.6-.6-.6-1.1V2.9c0-.5.2-.9.6-1.1zM16.8 8.9L13.7 12l3.1 3.1 3.6-2c1-.6 1-2 0-2.6l-3.6-1.6zM16.8 15.1L13.7 12 3.6 22.2c.3.2.8.3 1.2.1l12-7.2zM16.8 8.9l-12-7.2c-.4-.2-.9-.1-1.2.1L13.7 12l3.1-3.1z"/></svg>
+          Download Free
+        </a>
+        <a href="#pricing" class="btn-outline font-bold px-8 py-4 rounded-full">See Pricing</a>
+      </div>
+      <p class="text-[#8a8b93] text-xs mt-5 font-semibold tracking-wide">Android 8.0+ • Free download</p>
+      <p class="text-sm text-[#55565e] mt-2">Need help? Email <a href="mailto:support@inzeedo.lk" class="font-bold text-[#101014] underline underline-offset-2">support@inzeedo.lk</a></p>
+      <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mt-10 text-[11px] font-bold tracking-[0.16em] uppercase text-[#8a8b93]">
+        <span class="inline-flex items-center gap-2"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F0643C" stroke-width="2" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>Data encrypted</span>
+        <span class="inline-flex items-center gap-2"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F0643C" stroke-width="2" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></svg>No credit card</span>
+        <span class="inline-flex items-center gap-2"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F0643C" stroke-width="2" aria-hidden="true"><path d="M21 12a8 8 0 01-8 8H4l2-3a8 8 0 1115-5z"/></svg>Sinhala / Tamil / English</span>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<div class="max-w-6xl mx-auto px-5 sm:px-8 pb-5">
+<footer class="bg-[#0B0B0D] text-white rounded-[2rem] px-8 py-12 sm:p-14" aria-label="Footer">
+  <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+    <div>
+      <div class="flex items-center gap-2">
+        <span class="w-8 h-8 rounded-lg bg-[#F0643C] flex items-center justify-center font-logo font-bold text-white text-base" aria-hidden="true">L</span>
+        <span class="font-logo font-bold text-white text-lg">LedgerLK</span>
+      </div>
+      <p class="text-white/55 text-sm leading-relaxed mt-4 max-w-xs">Mobile bookkeeping and credit-ledger app for small businesses in Sri Lanka, by Inzeedo (PVT) Ltd.</p>
+    </div>
+    <nav aria-label="Product links">
+      <h3 class="font-bold text-sm">Product</h3>
+      <ul class="mt-5 space-y-3 text-sm text-white/55">
+        <li><a href="#features" class="hover:text-white transition-colors">Features</a></li>
+        <li><a href="#pricing" class="hover:text-white transition-colors">Pricing</a></li>
+        <li><a href="#download" class="hover:text-white transition-colors">Download</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="Legal links">
+      <h3 class="font-bold text-sm">Legal</h3>
+      <ul class="mt-5 space-y-3 text-sm text-white/55">
+        <li><a href="https://www.inzeedo.lk/privacy-policy/ledger-lk" class="hover:text-white transition-colors">Privacy Policy</a></li>
+        <li><a href="https://www.inzeedo.lk/terms/ledger-lk" class="hover:text-white transition-colors">Terms</a></li>
+        <li><a href="https://www.inzeedo.lk/privacy-policy/ledger-lk/account-deletion" class="hover:text-white transition-colors">Delete My Account</a></li>
+      </ul>
+    </nav>
+    <div>
+      <h3 class="font-bold text-sm">Company</h3>
+      <ul class="mt-5 space-y-3 text-sm text-white/55">
+        <li><a href="https://www.inzeedo.lk" target="_blank" rel="noopener" class="hover:text-white transition-colors">About Inzeedo</a></li>
+        <li><a href="mailto:hello@inzeedo.lk" class="hover:text-white transition-colors">Contact</a></li>
+        <li><a href="mailto:hello@inzeedo.lk" class="hover:text-white transition-colors">hello@inzeedo.lk</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="mt-12 pt-7 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+    <p class="text-xs text-white/45">© 2026 Inzeedo (PVT) Ltd • Sainthamaruthu / Colombo, Sri Lanka.</p>
+    <p class="text-xs text-white/45 flex gap-5">
+      <a href="https://www.inzeedo.lk/privacy-policy/ledger-lk" class="hover:text-white transition-colors">Privacy Policy</a>
+      <a href="https://www.inzeedo.lk/terms/ledger-lk" class="hover:text-white transition-colors">Terms of Service</a>
+    </p>
+  </div>
+</footer>
+</div>
+
+<!-- back to top -->
+<button id="to-top" class="fixed bottom-6 right-6 z-50 w-11 h-11 rounded-full bg-[#101014] text-white items-center justify-center shadow-xl hover:bg-black flex" aria-label="Back to top">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<script>
+// ---------- Ticker: duplicate for seamless loop ----------
+(function(){
+  var t = document.getElementById('town-ticker');
+  if(t){ t.innerHTML += t.innerHTML; }
+})();
+
+// ---------- Navbar shadow on scroll + to-top ----------
+(function(){
+  var nav = document.getElementById('navbar');
+  var toTop = document.getElementById('to-top');
+  function onScroll(){
+    var y = window.scrollY;
+    nav.style.boxShadow = y > 40 ? '0 18px 45px -18px rgba(0,0,0,.55)' : 'none';
+    toTop.classList.toggle('show', y > 600);
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+  toTop.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:(window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth')});
+  });
+})();
+
+// ---------- Mobile menu ----------
+(function(){
+  var btn = document.getElementById('menu-btn');
+  var menu = document.getElementById('mobile-menu');
+  var openIcon = document.getElementById('icon-open');
+  var closeIcon = document.getElementById('icon-close');
+  function setOpen(open){
+    menu.classList.toggle('hidden', !open);
+    openIcon.classList.toggle('hidden', open);
+    closeIcon.classList.toggle('hidden', !open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+  var isOpen = false;
+  btn.addEventListener('click', function(){ isOpen = !isOpen; setOpen(isOpen); });
+  menu.querySelectorAll('.mobile-link').forEach(function(a){
+    a.addEventListener('click', function(){ isOpen = false; setOpen(false); });
+  });
+})();
+
+// ---------- Smooth scrolling ----------
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click', function(e){
+    var id = a.getAttribute('href');
+    if(id.length > 1){
+      var el = document.querySelector(id);
+      if(el){ e.preventDefault(); el.scrollIntoView({behavior:(window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth')}); history.replaceState(null,'',id); }
+    }
+  });
+});
+
+// ---------- Active nav highlighting ----------
+(function(){
+  var links = document.querySelectorAll('[data-nav]');
+  var map = {};
+  links.forEach(function(l){ map[l.getAttribute('data-nav')] = l; });
+  if(!('IntersectionObserver' in window)) return;
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        links.forEach(function(l){ l.classList.remove('active'); });
+        var l = map[en.target.id];
+        if(l) l.classList.add('active');
+      }
+    });
+  }, {rootMargin:'-40% 0px -55% 0px'});
+  ['features','how-it-works','pricing','faq'].forEach(function(id){
+    var s = document.getElementById(id);
+    if(s) obs.observe(s);
+  });
+})();
+
+// ---------- FAQ accordion (one open at a time) ----------
+(function(){
+  var items = document.querySelectorAll('.faq-item');
+  items.forEach(function(item){
+    var btn = item.querySelector('.faq-q');
+    var ans = item.querySelector('.faq-answer');
+    btn.addEventListener('click', function(){
+      var currentlyOpen = item.getAttribute('data-open') === 'true';
+      items.forEach(function(other){
+        other.setAttribute('data-open','false');
+        other.querySelector('.faq-q').setAttribute('aria-expanded','false');
+        other.querySelector('.faq-answer').style.maxHeight = '0px';
+      });
+      if(!currentlyOpen){
+        item.setAttribute('data-open','true');
+        btn.setAttribute('aria-expanded','true');
+        ans.style.maxHeight = ans.scrollHeight + 'px';
+      }
+    });
+  });
+  window.addEventListener('resize', function(){
+    document.querySelectorAll('.faq-item[data-open="true"] .faq-answer').forEach(function(a){
+      a.style.maxHeight = a.scrollHeight + 'px';
+    });
+  });
+})();
+
+// ---------- Pricing toggle (segmented Monthly / Yearly) ----------
+(function(){
+  var bm = document.getElementById('btn-monthly');
+  var by = document.getElementById('btn-yearly');
+  if(!bm || !by) return;
+  function setYearly(yearly){
+    [ [bm, !yearly], [by, yearly] ].forEach(function(pair){
+      var btn = pair[0], on = pair[1];
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      btn.classList.toggle('bg-white', on);
+      btn.classList.toggle('shadow-sm', on);
+      btn.classList.toggle('text-[#55565e]', !on);
+    });
+    document.querySelectorAll('[data-price-monthly]').forEach(function(priceEl){
+      var wrap = priceEl.closest('.price-fade') || priceEl;
+      wrap.classList.add('swapping');
+      setTimeout(function(){
+        priceEl.textContent = yearly ? priceEl.getAttribute('data-price-yearly') : priceEl.getAttribute('data-price-monthly');
+        var period = priceEl.parentElement.querySelector('[data-period]');
+        if(period){
+          if(priceEl.getAttribute('data-price-monthly') === 'Rs. 0'){ period.textContent = 'forever'; }
+          else { period.textContent = yearly ? '/year' : '/month'; }
+        }
+        wrap.classList.remove('swapping');
+      }, 220);
+    });
+  }
+  bm.addEventListener('click', function(){ setYearly(false); });
+  by.addEventListener('click', function(){ setYearly(true); });
+})();
+
+// ---------- GSAP animations ----------
+(function(){
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduceMotion){ document.documentElement.classList.add('no-motion'); document.querySelectorAll('.reveal').forEach(function(el){ el.style.opacity = 1; }); return; }
+  if(typeof gsap === 'undefined'){ document.querySelectorAll('.reveal').forEach(function(el){ el.style.opacity = 1; }); return; }
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.defaults({ease:'power3.out'});
+
+  // ---------- word splitter (preserves inner markup like coral spans) ----------
+  function splitWords(el){
+    var words = [];
+    function walk(node){
+      if(node.nodeType === 3){
+        var frag = document.createDocumentFragment();
+        node.textContent.split(/(\s+)/).forEach(function(part){
+          if(!part) return;
+          if(/^\s+$/.test(part)){ frag.appendChild(document.createTextNode(' ')); return; }
+          var wrap = document.createElement('span'); wrap.className = 'w-wrap';
+          var inner = document.createElement('span'); inner.className = 'w-inner';
+          inner.textContent = part;
+          wrap.appendChild(inner); frag.appendChild(wrap);
+          words.push(inner);
+        });
+        node.parentNode.replaceChild(frag, node);
+      } else if(node.nodeType === 1){
+        Array.prototype.slice.call(node.childNodes).forEach(walk);
+      }
+    }
+    Array.prototype.slice.call(el.childNodes).forEach(walk);
+    return words;
+  }
+
+  function riseWords(targets, trigger, opts){
+    opts = opts || {};
+    gsap.fromTo(targets, {y:'115%'}, {
+      y:'0%', duration:opts.duration || .9, stagger:opts.stagger || .05,
+      delay:opts.delay || 0, ease:'power4.out',
+      scrollTrigger: trigger ? {trigger:trigger, start:'top 88%', once:true} : undefined
+    });
+  }
+
+  // ---------- load choreography ----------
+  var heroWords = splitWords(document.getElementById('hero-heading'));
+  var tl = gsap.timeline({defaults:{ease:'power3.out'}});
+  tl.fromTo('#navbar', {y:-72, opacity:0}, {y:0, opacity:1, duration:.8})
+    .fromTo('.hero-el', {y:26, opacity:0}, {y:0, opacity:1, duration:.7, stagger:.08}, '-=.45')
+    .fromTo('#hero-mockup', {y:64, opacity:0, rotateX:6}, {y:0, opacity:1, rotateX:0, duration:1.1}, '-=.5');
+  // headline words rise through masks alongside the block fade
+  gsap.fromTo(heroWords, {y:'115%'}, {y:'0%', duration:1, stagger:.055, ease:'power4.out', delay:.2});
+
+  // hero wash drifts gently on scroll
+  gsap.to('#top', {backgroundPosition:'50% 35%', ease:'none',
+    scrollTrigger:{trigger:'#top', start:'top top', end:'bottom top', scrub:1}});
+
+  // ---------- section headlines: masked word rise ----------
+  document.querySelectorAll('main h2').forEach(function(h){
+    h.classList.remove('reveal');
+    gsap.set(h, {opacity:1});
+    riseWords(splitWords(h), h, {duration:.85, stagger:.045});
+  });
+
+  // ---------- generic reveals (batch + headline items handled separately) ----------
+  gsap.utils.toArray('.reveal').forEach(function(el){
+    if(el.closest('article, figure') || el.tagName === 'LI' ||
+       el.classList.contains('preview-card') || el.classList.contains('faq-item')) return;
+    gsap.fromTo(el, {y:30, opacity:0}, {
+      y:0, opacity:1, duration:.8,
+      scrollTrigger:{trigger:el, start:'top 89%', once:true}
+    });
+  });
+
+  // ---------- staggered grid entrances ----------
+  function batchEnter(selector, vars){
+    var items = gsap.utils.toArray(selector);
+    if(!items.length) return;
+    gsap.set(items, {y:44, opacity:0});
+    ScrollTrigger.batch(items, {
+      start:'top 88%', once:true,
+      onEnter:function(batch){ gsap.to(batch, Object.assign({y:0, opacity:1, duration:.85, stagger:.1, overwrite:true}, vars)); }
+    });
+  }
+  batchEnter('#features article');
+  batchEnter('#how-it-works li');
+  batchEnter('section[aria-labelledby="preview-heading"] .preview-card');
+  batchEnter('section[aria-labelledby="testimonials-heading"] figure');
+  batchEnter('section[aria-labelledby="pricing-heading"] article', {stagger:.12});
+  batchEnter('#faq-list .faq-item', {y:24, duration:.6, stagger:.07});
+
+  // ---------- subtle 3D tilt on the hero mockup (fine pointers only) ----------
+  (function(){
+    var card = document.querySelector('#hero-mockup .tilt');
+    if(!card || !window.matchMedia('(pointer:fine)').matches) return;
+    gsap.set(card, {transformPerspective:900});
+    var rx = gsap.quickTo(card, 'rotationX', {duration:.6, ease:'power3.out'});
+    var ry = gsap.quickTo(card, 'rotationY', {duration:.6, ease:'power3.out'});
+    var hero = document.getElementById('top');
+    hero.addEventListener('mousemove', function(e){
+      var r = card.getBoundingClientRect();
+      var px = (e.clientX - (r.left + r.width/2)) / r.width;
+      var py = (e.clientY - (r.top + r.height/2)) / r.height;
+      rx(gsap.utils.clamp(-5, 5, -py * 7));
+      ry(gsap.utils.clamp(-7, 7, px * 9));
+    });
+    hero.addEventListener('mouseleave', function(){ rx(0); ry(0); });
+  })();
+
+  var counter = document.getElementById('collection-counter');
+  if(counter){
+    var target = 1250000;
+    var obj = {v:0};
+    ScrollTrigger.create({
+      trigger: counter, start:'top 92%', once:true,
+      onEnter: function(){
+        gsap.to(obj, {v:target, duration:2, ease:'power2.out', onUpdate:function(){
+          counter.textContent = 'Rs. ' + Math.floor(obj.v).toLocaleString('en-LK');
+        }});
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>
